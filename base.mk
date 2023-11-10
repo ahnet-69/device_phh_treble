@@ -257,6 +257,8 @@ PRODUCT_PACKAGES += \
     QcRilAm
 
 PRODUCT_PACKAGES += \
-       slsi-booted
+	slsi-booted \
+	Iwlan \
+	QualifiedNetworksService \
 
 PRODUCT_EXTRA_VNDK_VERSION += 28
