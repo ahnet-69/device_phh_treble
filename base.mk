@@ -260,5 +260,6 @@ PRODUCT_PACKAGES += \
 	slsi-booted \
 	Iwlan \
 	QualifiedNetworksService \
+	MtkInCallService \
 
 PRODUCT_EXTRA_VNDK_VERSION += 28
