@@ -1,7 +1,7 @@
-From c370f6611d752eb83d00e36ca9f1c39aaa11f5eb Mon Sep 17 00:00:00 2001
+From 3c2f3bdb55ae3b87ef17470fe03911598963fd1e Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 17 Oct 2021 17:17:13 -0400
-Subject: [PATCH 3/6] Don't abort when failing to get real-time priority
+Subject: [PATCH 3/5] Don't abort when failing to get real-time priority
 
 On some devices (like OP6), for unknown reason, trying to go to realtime
 fails with EPERM.
@@ -81,5 +81,5 @@ index 2aa2510..e50de32 100644
      LOG(ERROR) << __func__ << ": unable to enable real time scheduling";
  #endif
 -- 
-2.42.0
+2.34.1
 

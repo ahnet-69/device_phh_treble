@@ -1,7 +1,7 @@
-From 7d1178ef42bc94f0e99b5d7c73ffa31a4fceb859 Mon Sep 17 00:00:00 2001
+From 10348ba20263835939c27407d2bf3081cc12eb57 Mon Sep 17 00:00:00 2001
 From: Andreas Schneider <asn@cryptomilk.org>
 Date: Sat, 12 Nov 2022 00:35:46 +0000
-Subject: [PATCH 4/6] On Samsung devices, we need to tell Audio HAL if we're
+Subject: [PATCH 4/5] On Samsung devices, we need to tell Audio HAL if we're
  running narrow band or wide band
 
 Ported to Android 13.
@@ -63,5 +63,5 @@ index 57eb9af..fbe2941 100644
              default:
                  Log.e(TAG, "processWBSEvent: unknown wbsConfig " + wbsConfig);
 -- 
-2.42.0
+2.34.1
 

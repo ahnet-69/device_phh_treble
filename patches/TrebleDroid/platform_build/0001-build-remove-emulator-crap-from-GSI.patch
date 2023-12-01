@@ -1,7 +1,7 @@
-From 007c7646b6fe3f816f66f75225f52bff21ad3f24 Mon Sep 17 00:00:00 2001
+From 20341811580fc88bd8644751e587cd012aa65573 Mon Sep 17 00:00:00 2001
 From: sooti <sooti85@gmail.com>
 Date: Tue, 12 Oct 2021 14:32:52 +0300
-Subject: [PATCH 1/5] build: remove emulator crap from GSI
+Subject: [PATCH 1/6] build: remove emulator crap from GSI
 
 Change-Id: Id45f3ff1d31e3d4492f956e68a1eb4b2fb82ce63
 ---
@@ -30,5 +30,5 @@ index f71b275..6298425 100644
 +# PRODUCT_SYSTEM_EXT_PROPERTIES += \
 +#    ro.setupwizard.mode?=DISABLED
 -- 
-2.42.0
+2.34.1
 

@@ -1,4 +1,4 @@
-From d3bd6dc28aaabcfefb579fc6894686a350405b00 Mon Sep 17 00:00:00 2001
+From c81b12f9ddd67bb5ee09416f230cb75baf11ae66 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 6 Oct 2023 08:49:59 -0400
 Subject: [PATCH 9/9] Allow conflict on fuseblk
@@ -21,5 +21,5 @@ index 1703b3b..5428005 100644
                  bypass = 1;
          }
 -- 
-2.42.0
+2.34.1
 

@@ -1,4 +1,4 @@
-From 792592317d3bf5c2f6586928dea35ef146f56958 Mon Sep 17 00:00:00 2001
+From 03e118fc6bb936d76b127de7c71fcc36ffece2fe Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Thu, 18 Aug 2022 15:44:46 -0400
 Subject: [PATCH 01/20] APM: Restore S, R and Q behavior respectively for
@@ -322,5 +322,5 @@ index 88bafef..188b573 100644
          SourceClientCollection mAudioSources;
  
 -- 
-2.42.0
+2.34.1
 
