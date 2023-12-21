@@ -1,4 +1,4 @@
-From 66f5fa98bfa7f1284f873623a9f4d98a257f9336 Mon Sep 17 00:00:00 2001
+From 70b85accf8369b41ba3a2222447f9c679c6120e7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 25 Nov 2023 08:15:28 -0500
 Subject: [PATCH 9/9] Add MTK GED KPI support to fix broken Mediatek gpufreq
@@ -22,7 +22,7 @@ well)
  2 files changed, 205 insertions(+)
 
 diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
-index ed69100..f319893 100644
+index 823719a..5e357b0 100644
 --- a/libs/gui/Surface.cpp
 +++ b/libs/gui/Surface.cpp
 @@ -24,6 +24,9 @@
@@ -229,7 +229,7 @@ index ed69100..f319893 100644
  
      if (CC_UNLIKELY(atrace_is_tag_enabled(ATRACE_TAG_GRAPHICS))) {
          static gui::FenceMonitor gpuCompletionThread("GPU completion");
-@@ -1852,6 +2014,46 @@ int Surface::connect(
+@@ -1857,6 +2019,46 @@ int Surface::connect(
  
          mConsumerRunningBehind = (output.numPendingBuffers >= 2);
      }
@@ -291,5 +291,5 @@ index 39a59e4..ff595dd 100644
  
  } // namespace android
 -- 
-2.34.1
+2.43.0
 

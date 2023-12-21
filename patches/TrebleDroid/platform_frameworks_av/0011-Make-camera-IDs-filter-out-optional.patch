@@ -1,4 +1,4 @@
-From 167c7845a316157fa65146a5ad662a48a5b073dc Mon Sep 17 00:00:00 2001
+From bbaad4290a211597ce90559fb75ac6d250bfd00b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 21 Dec 2020 20:19:11 +0100
 Subject: [PATCH 11/20] Make camera IDs filter-out optional
@@ -65,5 +65,5 @@ index d498ecb..587d3ee 100644
      else
          ret = interface->getCameraIdList(cb);
 -- 
-2.34.1
+2.43.0
 

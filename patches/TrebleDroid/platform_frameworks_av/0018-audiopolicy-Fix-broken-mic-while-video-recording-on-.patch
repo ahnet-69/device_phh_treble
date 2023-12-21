@@ -1,4 +1,4 @@
-From 1d2bc5e7d296589774385d3e40acb34a33aa97a6 Mon Sep 17 00:00:00 2001
+From 19b2c92501e0eb4100ef12ba6ca12ce633d0e48a Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Sun, 30 Apr 2023 23:29:04 +0100
 Subject: [PATCH 18/20] audiopolicy: Fix broken mic while video recording on
@@ -60,5 +60,5 @@ index fc6cc72..8b3a1f0 100644
          }
          devTag = strtok(NULL, ",");
 -- 
-2.34.1
+2.43.0
 

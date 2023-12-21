@@ -1,4 +1,4 @@
-From a9ce56bed93d8095e0d88c42c38ed6b31e49fe48 Mon Sep 17 00:00:00 2001
+From 0d5019b74fbdfbe35b4c0fe2bd18a84d8edefa1a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 31 Mar 2021 23:36:03 +0200
 Subject: [PATCH 4/9] Remove Samsung system permission on sensors
@@ -33,5 +33,5 @@ index bae8a13..afaafb3 100644
      int32_t mRequiredAppOp;
      int32_t mMaxDelay;
 -- 
-2.34.1
+2.43.0
 

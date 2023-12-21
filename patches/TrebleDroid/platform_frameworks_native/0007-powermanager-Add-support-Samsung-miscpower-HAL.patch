@@ -1,4 +1,4 @@
-From 358f07186f0d88826d6f80ea021389cbb9aaf39e Mon Sep 17 00:00:00 2001
+From 741d54cbef18d2e6dd315ccd7e148615f93426af Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 27 Dec 2021 18:00:43 -0500
 Subject: [PATCH 7/9] powermanager: Add support Samsung miscpower HAL
@@ -329,5 +329,5 @@ index cdec4ab..09398d7 100644
      static_libs: [
          "libmath",
 -- 
-2.34.1
+2.43.0
 

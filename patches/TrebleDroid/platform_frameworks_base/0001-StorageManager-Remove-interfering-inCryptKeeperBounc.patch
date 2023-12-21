@@ -1,0 +1,29 @@
+From 60293e2851a439ac97a17215f106fd3e8b0c05ad Mon Sep 17 00:00:00 2001
+From: ItsLynix <lynixthewolf@gmail.com>
+Date: Sat, 31 Dec 2022 14:46:56 +0100
+Subject: [PATCH 01/31] StorageManager: Remove interfering
+ inCryptKeeperBounce()
+
+Interferes with patch 31 frameworks/base of TD patches
+---
+ core/java/android/os/storage/StorageManager.java | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/core/java/android/os/storage/StorageManager.java b/core/java/android/os/storage/StorageManager.java
+index c2613a38..ee387e7c 100644
+--- a/core/java/android/os/storage/StorageManager.java
++++ b/core/java/android/os/storage/StorageManager.java
+@@ -1682,10 +1682,6 @@ public class StorageManager {
+         return RoSystemProperties.CRYPTO_ENCRYPTED;
+     }
+ 
+-    public static boolean inCryptKeeperBounce() {
+-        return false;
+-    }
+-
+     /** {@hide}
+      * Does this device have file-based encryption (FBE) enabled?
+      * @return true if the device has file-based encryption enabled.
+-- 
+2.43.0
+

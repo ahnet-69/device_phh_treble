@@ -1,4 +1,4 @@
-From 87be42289ce1a2229be8cbe0d95eb8fb3a9c7e2b Mon Sep 17 00:00:00 2001
+From ec4d22c90cbedfcc1847f92ce9bae5ac8e683ec1 Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Thu, 23 Jan 2020 11:13:43 +0800
 Subject: [PATCH 04/20] audiopolicy: try again with trimmed audio port name if
@@ -51,5 +51,5 @@ index b30ad7e..53fabcc 100644
                  ALOGE("%s: no source found with name=%s", __func__, devTag);
                  return BAD_VALUE;
 -- 
-2.34.1
+2.43.0
 
