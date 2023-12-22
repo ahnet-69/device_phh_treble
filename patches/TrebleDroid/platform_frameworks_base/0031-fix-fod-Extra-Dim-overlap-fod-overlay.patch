@@ -1,15 +1,15 @@
-From f2fef42cd3c9c563cae9abe6e0621ecbc109068a Mon Sep 17 00:00:00 2001
+From e6e9c7f07c175b65bf29c5df9c6fce6b44a47f39 Mon Sep 17 00:00:00 2001
 From: MrHereAndThere <38396158+boydaihungst@users.noreply.github.com>
 Date: Fri, 17 Nov 2023 09:22:29 +0700
-Subject: [PATCH 31/31] fix(fod): Extra Dim overlap fod overlay
+Subject: [PATCH] fix(fod): Extra Dim overlap fod overlay
 
 Extra Dim will set display panel brightness to lowest value possible, which will also effect FOD overlay.
 ---
- .../systemui/biometrics/UdfpsController.java  | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ .../systemui/biometrics/UdfpsController.java  | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
-index c6f14e02..8a010648 100644
+index c6f14e02..23fdffd7 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
 @@ -46,6 +46,7 @@ import android.hardware.fingerprint.FingerprintSensorProperties;
@@ -72,7 +72,7 @@ index c6f14e02..8a010648 100644
              mLatencyTracker.onActionStart(LatencyTracker.ACTION_UDFPS_ILLUMINATE);
          }
          // Refresh screen timeout and boost process priority if possible.
-@@ -1319,6 +1334,11 @@ public class UdfpsController implements DozeReceiver, Dumpable {
+@@ -1319,6 +1334,12 @@ public class UdfpsController implements DozeReceiver, Dumpable {
              }
          }
          mOnFingerDown = true;
@@ -81,6 +81,7 @@ index c6f14e02..8a010648 100644
 +                mColorDisplayManager.setReduceBrightColorsActivated(true);
 +                Log.d(TAG, "Extra dim restored");
 +            }
++	}
          if (mAlternateTouchProvider != null) {
              mBiometricExecutor.execute(() -> {
                  mAlternateTouchProvider.onPointerDown(requestId, (int) x, (int) y, minor, major);
