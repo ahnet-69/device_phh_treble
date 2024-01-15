@@ -1,4 +1,3 @@
-$(call inherit-product, device/phh/treble/base-pre.mk)
 include build/make/target/product/aosp_arm64.mk
 $(call inherit-product, device/phh/treble/base.mk)
 
