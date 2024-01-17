@@ -5,6 +5,7 @@ $(call inherit-product, device/phh/treble/base.mk)
 # PRODUCT_USE_SCUDO := true
 
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
+$(call inherit-product, device/custom/sepolicy/common/sepolicy.mk)
 
 TARGET_BOOT_ANIMATION_RES := 1080
 TARGET_GAPPS_ARCH := arm64
@@ -31,6 +32,9 @@ TARGET_BUILD_APERTURE_CAMERA := true
 
 # Certain devices need scudo
 PRODUCT_USE_SCUDO := true
+
+# Prebuilt Sepolicy
+TARGET_USES_PREBUILT_VENDOR_SEPOLICY := true
 
 # GMS
 ifeq ($(WITH_GMS),true)

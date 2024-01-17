@@ -33,21 +33,21 @@ index 6ab294f..fc23763 100644
      ErrorCode status = complete_view.GetStatus();
      ASSERT_LOG(status == ErrorCode::SUCCESS, "Status 0x%02hhx, %s", status, ErrorCodeText(status).c_str());
 +
-+    auto local_commands = complete_view.GetSupportedCommands();
-+    std::string ignored_commands = GetSystemProperty("persist.sys.bt.unsupported.commands").value_or("");
 +
-+    if (ignored_commands != "") {
-+        auto s = base::SplitString(ignored_commands, ",", base::TRIM_WHITESPACE, base::SPLIT_WANT_ALL);
-+        for(auto command: s) {
-+            int index = std::stoi(command);
-+            LOG_WARN("Ignoring local supported command %d", index);
-+            uint16_t byte_index = index / 10;
-+            uint16_t bit_index = index % 10;
-+            local_commands[byte_index] &= ~(1 << bit_index);
-+        }
-+    }
 +
-+    local_supported_commands_ = local_commands;
++
++
++
++
++
++
++
++
++
++
++
++
++
    }
  
    void read_local_name_complete_handler(CommandCompleteView view) {

@@ -1,4 +1,4 @@
-From 4d66862da828dc177b2fa4eb4f808ad5df65eda6 Mon Sep 17 00:00:00 2001
+From 114e8a7bd6ff6685c72d418e72ba50da2c404bea Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 18 Dec 2022 18:20:40 -0500
 Subject: [PATCH] FOD support for Asus, Samsung recent Xiaomi and RedMagic 8
@@ -17,12 +17,12 @@ Change-Id: Ibd0f9ea8fba584a38c060fd9271549a5e106b4eb
 ---
  packages/SystemUI/Android.bp                  |   4 +
  .../systemui/biometrics/UdfpsController.java  |  56 ++++
- .../biometrics/UdfpsControllerOverlay.kt      |   7 +-
- .../android/systemui/biometrics/UdfpsView.kt  | 221 ++++++++++++-
+ .../biometrics/UdfpsControllerOverlay.kt      |   6 +-
+ .../android/systemui/biometrics/UdfpsView.kt  | 220 +++++++++++++
  services/core/Android.bp                      |   5 +
  .../server/biometrics/AuthService.java        | 296 +++++++++++++++++-
  .../fingerprint/FingerprintService.java       |   3 +-
- 7 files changed, 585 insertions(+), 7 deletions(-)
+ 7 files changed, 584 insertions(+), 6 deletions(-)
 
 diff --git a/packages/SystemUI/Android.bp b/packages/SystemUI/Android.bp
 index 81e1df33..bb96bd99 100644
@@ -142,21 +142,20 @@ index 8b0c19f5..5ed96351 100644
                  cb.onFingerUp();
              }
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-index 4c6e593e..3cf23a24 100644
+index 4c6e593e..b0482c7a 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-@@ -135,7 +135,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
+@@ -135,7 +135,8 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
          gravity = android.view.Gravity.TOP or android.view.Gravity.LEFT
          layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
          flags = (Utils.FINGERPRINT_OVERLAY_LAYOUT_PARAM_FLAGS or
 -                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH)
 +                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH) or
 +                WindowManager.LayoutParams.FLAG_DIM_BEHIND
-+
          if (frameworkDimming) {
              flags = flags or WindowManager.LayoutParams.FLAG_DIM_BEHIND
          }
-@@ -206,6 +208,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
+@@ -206,6 +207,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
                      windowManager.addView(this, coreLayoutParams.updateDimensions(animation))
                      sensorRect = sensorBounds
                      touchExplorationEnabled = accessibilityManager.isTouchExplorationEnabled
@@ -167,22 +166,22 @@ index 4c6e593e..3cf23a24 100644
                          if (accessibilityManager.isTouchExplorationEnabled) {
                              setOnHoverListener { v, event -> onTouch(v, event, true) }
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-index ef7fcc95..fbd6f5ac 100644
+index ef7fcc95..4f42729e 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-@@ -19,17 +19,33 @@ import android.content.Context
+@@ -19,6 +19,8 @@ import android.content.Context
  import android.graphics.Canvas
  import android.graphics.Color
  import android.graphics.Paint
 +import android.graphics.PixelFormat
++import android.os.FileObserver
  import android.graphics.PointF
  import android.graphics.Rect
  import android.graphics.RectF
-+import android.os.FileObserver
- import android.util.AttributeSet
+@@ -26,10 +28,25 @@ import android.util.AttributeSet
  import android.util.Log
  import android.view.MotionEvent
--import android.view.Surface
+ import android.view.Surface
 +import android.view.SurfaceHolder
 +import android.view.SurfaceView
 +import android.view.ViewGroup
@@ -205,7 +204,7 @@ index ef7fcc95..fbd6f5ac 100644
  
  private const val TAG = "UdfpsView"
  
-@@ -40,6 +56,54 @@ class UdfpsView(
+@@ -40,6 +57,54 @@ class UdfpsView(
      context: Context,
      attrs: AttributeSet?
  ) : FrameLayout(context, attrs), DozeReceiver {
@@ -260,7 +259,7 @@ index ef7fcc95..fbd6f5ac 100644
  
      // Use expanded overlay when feature flag is true, set by UdfpsViewController
      var useExpandedOverlay: Boolean = false
-@@ -70,6 +134,8 @@ class UdfpsView(
+@@ -70,6 +135,8 @@ class UdfpsView(
      /** Parameters that affect the position and size of the overlay. */
      var overlayParams = UdfpsOverlayParams()
  
@@ -269,7 +268,7 @@ index ef7fcc95..fbd6f5ac 100644
      /** Debug message. */
      var debugMessage: String? = null
          set(value) {
-@@ -154,6 +220,31 @@ class UdfpsView(
+@@ -154,6 +221,31 @@ class UdfpsView(
              !(animationViewController?.shouldPauseAuth() ?: false)
      }
  
@@ -301,7 +300,7 @@ index ef7fcc95..fbd6f5ac 100644
      fun configureDisplay(onDisplayConfigured: Runnable) {
          isDisplayConfigured = true
          animationViewController?.onDisplayConfiguring()
-@@ -165,6 +256,84 @@ class UdfpsView(
+@@ -165,6 +257,84 @@ class UdfpsView(
          } else {
              doIlluminate(null /* surface */, onDisplayConfigured)
          }
@@ -386,7 +385,7 @@ index ef7fcc95..fbd6f5ac 100644
      }
  
      private fun doIlluminate(surface: Surface?, onDisplayConfigured: Runnable?) {
-@@ -186,5 +355,55 @@ class UdfpsView(
+@@ -186,5 +356,55 @@ class UdfpsView(
              view.visibility = INVISIBLE
          }
          mUdfpsDisplayMode?.disable(null /* onDisabled */)
