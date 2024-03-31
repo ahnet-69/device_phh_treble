@@ -257,4 +257,4 @@ PRODUCT_PACKAGES += \
 	QualifiedNetworksService \
 	MtkInCallService \
 
-PRODUCT_EXTRA_VNDK_VERSION += 28
+PRODUCT_EXTRA_VNDK_VERSION += 28 29
